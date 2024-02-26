@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ItemModel extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'quantity', 'completed'];
+    protected $table = 'items';
+    protected $fillable = ['shopping_list_id', 'category_id' ,'name', 'quantity', 'completed'];
 
     public function shoppingLists()
     {
-        return $this->belongsTo(ShoppingListModel::class);
+        return $this->belongsTo(ShoppingListModel::class, 'shopping_list_id');
     }
 
     public function user()
