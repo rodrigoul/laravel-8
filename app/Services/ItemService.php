@@ -32,7 +32,21 @@ class ItemService implements ServiceInterface
         return $this->itemModel::create($data);
     }
     
-    public function show($id){}
-    public function update($id, array $data){}
+    public function show($id)
+    {
+        try {
+
+            return $this->itemModel::with('category')->findOrFail($id);
+
+        } catch (\Exception $e) {
+
+            throw $e; 
+        }
+    }
+
+    public function update($id, array $data){
+
+    }
+    
     public function delete($id){}
 }
