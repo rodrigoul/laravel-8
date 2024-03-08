@@ -22,9 +22,7 @@ class ShoppingListService implements ServiceInterface
     public function index(){
 
         try {
-            $shoppingLists = $this->shoppingListModel::query()
-                ->with('items')
-                ->get()->toArray();
+            $shoppingLists = $this->shoppingListModel::query()->get()->toArray();
     
             return $shoppingLists;
         } catch (Exception $e) {

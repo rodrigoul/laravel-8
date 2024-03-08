@@ -4,34 +4,30 @@ namespace App\Services;
 
 use App\Interfaces\ServiceInterface;
 use Illuminate\Http\Request;
-use App\Models\ItemModel;
+use App\Models\CategoryModel;
 use Exception;
 
-class ItemService implements ServiceInterface
+class CategoryService implements ServiceInterface
 {   
-    private $itemModel;
+    private $categoryModel;
 
-    public function __construct(ItemModel $itemModel) {
+    public function __construct(CategoryModel $categoryModel) {
 
-        $this->itemModel = $itemModel;
+        $this->categoryModel = $categoryModel;
     }
 
     public function index(){
 
         try {
             
-            return $this->itemModel::with('category')->get();
+            return $this->categoryModel::all();
             
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function create(array $data){
-
-        return $this->itemModel::create($data);
-    }
-    
+    public function create(array $data){}
     public function show($id){}
     public function update($id, array $data){}
     public function delete($id){}

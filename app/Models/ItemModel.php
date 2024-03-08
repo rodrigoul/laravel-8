@@ -4,25 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ItemModel extends Model
 {
     use HasFactory;
     protected $table = 'items';
-    protected $fillable = ['shopping_list_id', 'category_id' ,'name', 'quantity', 'completed'];
-
-    public function shoppingLists()
-    {
-        return $this->belongsTo(ShoppingListModel::class, 'shopping_list_id');
-    }
+    protected $fillable = ['category_id' ,'name'];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function purchases()
     {
-        return $this->hasMany(PurchaseModel::class);
+        return $this->hasMany(PurchaseModel::class, 'item_id');
+    }
+
+    public function category() : BelongsTo
+    {
+        return $this->belongsTo(CategoryModel::class, 'category_id');
     }
 }

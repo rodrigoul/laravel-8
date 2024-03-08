@@ -21,4 +21,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/shopping-list', [App\Http\Controllers\ShoppingListController::class, 'index']);
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items.index');
+    Route::get('/items/cadastrar', [App\Http\Controllers\ItemController::class, 'create'])->name('items.create');
+    Route::post('/items/create', [App\Http\Controllers\ItemController::class, 'create'])->name('items.create');
+});
+
+
