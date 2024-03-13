@@ -36,7 +36,7 @@ class ItemService implements ServiceInterface
     {
         try {
 
-            return $this->itemModel::with('category')->findOrFail($id);
+            return $this->itemModel::with('category')->find($id);
 
         } catch (\Exception $e) {
 
@@ -46,6 +46,7 @@ class ItemService implements ServiceInterface
 
     public function update($id, array $data){
 
+        return $this->itemModel::where('id', $id)->update($data);
     }
     
     public function delete($id){}

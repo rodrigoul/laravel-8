@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <a href="{{ route('items.index') }}" class="btn btn-link" target="blank">
+                <i class="bi bi-pencil"></i> Retornar à lista
+            </a>
             <div class="card">
                 <div class="card-header">{{ __('Cadastro de Itens') }}</div>
 

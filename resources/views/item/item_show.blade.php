@@ -4,15 +4,19 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <a href="{{ route('items.index') }}" class="btn btn-link" target="blank">
+                <i class="bi bi-pencil"></i> Retornar à lista
+            </a>
             <div class="card">
                 <div class="card-header">{{ __('Atualização de Item') }}</div>
 
                 <div class="card-body">
-                    <!-- <form method="POST" action="{{ route('items.update', ['id' => $item->id]) }}"> -->
-                    <form method="POST" action="">
+                    @csrf
+                    <form method="POST" action="{{ route('items.update', ['id' => $item->id]) }}">
+                        @method('POST')
                         @csrf
-                        @method('PUT')
-
+                        
+                        <input type="hidden" name="id" value="{{ $item->id }}"/>
                         <div class="mb-3">
                             <label for="name" class="form-label">{{ __('Nome do Item') }}</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $item->name) }}" required autofocus>
@@ -38,7 +42,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
 </div>

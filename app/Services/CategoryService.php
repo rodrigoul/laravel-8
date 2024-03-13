@@ -27,8 +27,27 @@ class CategoryService implements ServiceInterface
         }
     }
 
-    public function create(array $data){}
-    public function show($id){}
-    public function update($id, array $data){}
+    public function create(array $data){
+
+        return $this->categoryModel::create($data);
+    }
+
+    public function show($id)
+    {
+        try {
+
+            return $this->categoryModel::find($id);
+
+        } catch (\Exception $e) {
+
+            throw $e; 
+        }
+    }
+    
+    public function update($id, array $data){
+
+        return $this->categoryModel::where('id', $id)->update($data);
+    }
+
     public function delete($id){}
 }
