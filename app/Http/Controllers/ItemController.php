@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\ControllerInterface;
 use App\Http\Requests\ItemValidation;
 use App\Services\ItemService;
-use App\Interfaces\ControllerInterface;
 use App\Services\CategoryService;
-use Exception;
 use Illuminate\Http\Request;
+use Exception;
 
 class ItemController extends Controller implements ControllerInterface
 {

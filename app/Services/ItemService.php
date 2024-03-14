@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Interfaces\ServiceInterface;
-use Illuminate\Http\Request;
 use App\Models\ItemModel;
 use Exception;
 
