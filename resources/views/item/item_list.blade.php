@@ -16,7 +16,7 @@
             </div>
             @endif
             
-            <a href="{{ route('items.cadastrar') }}" class="btn btn-link" target="blank">Novo Item +</a>
+            <a href="{{ route('items.cadastrar') }}" class="btn btn-link">Novo Item +</a>
             
             <div class="card">
                 <div class="card-header">{{ __('Lista de Itens') }}</div>
@@ -44,7 +44,7 @@
                                 <td>{{ $item['name'] }}</td>
                                 <td>{{ $item->category->name }}</td>
                                 <td>
-                                    <a href="{{ route('items.show', ['id' => $item['id']]) }}" class="btn btn-primary btn-sm" target="blank">
+                                    <a href="{{ route('items.show', ['id' => $item['id']]) }}" class="btn btn-primary btn-sm">
                                         Editar
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
