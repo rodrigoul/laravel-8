@@ -28,7 +28,13 @@ class CategoryService implements ServiceInterface
 
     public function create(array $data){
 
-        return $this->categoryModel::create($data);
+        try {
+    
+            return $this->categoryModel::create($data);
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     public function show($id)

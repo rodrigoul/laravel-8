@@ -40,4 +40,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{id}', [App\Http\Controllers\CategoryController::class, 'show'])->name('category.show');
         Route::post('/update/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
     });
+
+    // Listas   
+    Route::prefix('shopping-list')->group(function () {
+        
+        Route::get('/', [App\Http\Controllers\ShoppingListController::class, 'index'])->name('shopping-list.index');
+        Route::get('/cadastrar', [App\Http\Controllers\ShoppingListController::class, 'create'])->name('shopping-list.cadastrar');
+        Route::post('/create', [App\Http\Controllers\ShoppingListController::class, 'create'])->name('shopping-list.create');
+        Route::get('/show/{id}', [App\Http\Controllers\ShoppingListController::class, 'show'])->name('shopping-list.show');
+        Route::post('/update/{id}', [App\Http\Controllers\ShoppingListController::class, 'update'])->name('shopping-list.update');
+    });
 });

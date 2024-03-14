@@ -21,15 +21,22 @@ class ItemService implements ServiceInterface
             
             return $this->itemModel::with('category')->get();
             
-        } catch (Exception $e) {
-            throw $e;
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 
     public function create(array $data){
 
-        return $this->itemModel::create($data);
+        try {
+            
+            return $this->itemModel::create($data);
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
+
     
     public function show($id)
     {
