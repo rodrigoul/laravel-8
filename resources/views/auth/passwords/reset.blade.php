@@ -42,7 +42,11 @@
                         </div>
 
                         <div class="row mb-3">
+<<<<<<< HEAD
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirme a Senha') }}</label>
+=======
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirmar Senha') }}</label>
+>>>>>>> 2c0bc5d46be9ac4df8cd044cf00814adbfe1559f
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
