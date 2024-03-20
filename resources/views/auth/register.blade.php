@@ -64,11 +64,7 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-<<<<<<< HEAD
                                     {{ __('Registrar-se') }}
-=======
-                                    {{ __('Registrar') }}
->>>>>>> 2c0bc5d46be9ac4df8cd044cf00814adbfe1559f
                                 </button>
                             </div>
                         </div>

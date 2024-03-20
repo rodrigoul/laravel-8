@@ -14,6 +14,7 @@ class AddEndedToShoppingListsTable extends Migration
     public function up()
     {
         Schema::table('shopping_lists', function (Blueprint $table) {
+
             $table->boolean('ended')->default(false)->after('updated_at');
         });
     }

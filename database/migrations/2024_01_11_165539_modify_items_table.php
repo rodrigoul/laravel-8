@@ -14,16 +14,27 @@ class ModifyItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            
-            $table->dropColumn('quantity');
+
+            $table->unsignedInteger('category_id')->nullable()->after('updated_at');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->unsignedBigInteger('shopping_list_id')->nullable();
-            $table->foreign('shopping_list_id')->references('id')->on('shopping_lists')->onDelete('cascade');
+
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
         });
     }
 }

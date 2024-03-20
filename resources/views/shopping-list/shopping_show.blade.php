@@ -8,7 +8,7 @@
                 <i class="bi bi-arrow-left"></i> Retornar à lista
             </a>
             <div class="card">
-                <div class="card-header">{{ __('Atualização de Item') }}</div>
+                <div class="card-header">{{ __('Atualização') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('shopping-list.update', ['id' => $shoppingList->id]) }}">

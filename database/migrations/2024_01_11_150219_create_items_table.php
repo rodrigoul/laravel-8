@@ -17,14 +17,8 @@ class CreateItemsTable extends Migration
             
             $table->unsignedInteger('id', 10)->autoIncrement();
 
-            $table->unsignedInteger('shopping_list_id')->nullable()->index();
-
             $table->string('name');
-            $table->integer('quantity')->default(1);
-            $table->boolean('completed')->default(false);
             $table->timestamps();
-
-            $table->foreign('shopping_list_id')->references('id')->on('shopping_lists')->onDelete('cascade');
         });
     }
 

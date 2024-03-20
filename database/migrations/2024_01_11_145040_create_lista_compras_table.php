@@ -17,7 +17,7 @@ class CreateListaComprasTable extends Migration
             
             $table->unsignedInteger('id', 10)->autoIncrement();
             
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

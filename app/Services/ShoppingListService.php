@@ -52,6 +52,10 @@ class ShoppingListService implements ServiceInterface
         }
     }
 
-    public function update($id, array $data){}
+    public function update($id, array $data){
+
+
+    }
+    
     public function delete($id){}
 }
