@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\ControllerInterface;
 use Illuminate\Http\Request;
+use App\Services\HomeService;
 
-class HomeController extends Controller
-{
+class HomeController extends Controller implements ControllerInterface
+{   
+    private $homeService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(HomeService $homeService)
     {
         $this->middleware('auth');
+        $this->homeService = $homeService;
     }
 
     /**
@@ -22,7 +27,18 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $categoryData = $this->homeService->index();
+        //dd($categoryData->toArray());
+
+        return view('home', ['categories' => $categoryData]);
     }
+
+    public function create(Request $request){}
+
+    public function show($id){}
+
+    public function update($id, Request $request){}
+
+    public function delete($id, Request $request){}
 }

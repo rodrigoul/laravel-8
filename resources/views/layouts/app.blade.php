@@ -13,13 +13,19 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <!-- Highcharts.js -->
+    <script src="{{ asset('js/highcharts.js') }}"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.2.2/css/highcharts.min.css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/highcharts.css') }}" rel="stylesheet"> -->
 </head>
 <body>
     <div id="app">
@@ -61,6 +67,19 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    
+                                    <a class="dropdown-item" href="{{ route('category.index') }}">
+                                        {{ __('Categorias') }}
+                                    </a>
+                                    
+                                    <a class="dropdown-item" href="{{ route('items.index') }}">
+                                        {{ __('Items') }}
+                                    </a>
+                                    
+                                    <a class="dropdown-item" href="{{ route('shopping-list.index') }}">
+                                        {{ __('Listas') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

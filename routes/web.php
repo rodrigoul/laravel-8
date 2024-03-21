@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
     // Items
     Route::prefix('items')->group(function () {
@@ -50,4 +50,5 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{id}', [App\Http\Controllers\ShoppingListController::class, 'show'])->name('shopping-list.show');
         Route::post('/update/{id}', [App\Http\Controllers\ShoppingListController::class, 'update'])->name('shopping-list.update');
     });
+    
 });

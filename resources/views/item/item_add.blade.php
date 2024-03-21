@@ -26,7 +26,7 @@
 
                         <div class="mb-3">
                             <label for="category" class="form-label">{{ __('Categoria') }}</label>
-                            <select id="category" class="form-select" name="category_id">
+                            <select id="category" class="form-select" name="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
                                 <option value="" selected>{{ __('Selecione uma categoria') }}</option>
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
