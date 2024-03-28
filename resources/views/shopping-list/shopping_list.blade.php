@@ -37,16 +37,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $item)
+                        @foreach($data as $item)
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->ended ? 'Finalizada' : 'Aberta' }}</td>
                                 <td>
+                                    @if(!$item->ended)
                                     <a href="{{ route('shopping-list.show', ['id' => $item->id]) }}" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus"></i> Items
-                                        /
-                                        <i class="fas fa-pen"></i>  Editar
+                                        <i class="fas fa-plus"></i> Items / <i class="fas fa-pen"></i> Editar
                                     </a>
+                                    @else
+                                    <i class="fas fa-lock"></i>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

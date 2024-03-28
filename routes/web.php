@@ -50,5 +50,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{id}', [App\Http\Controllers\ShoppingListController::class, 'show'])->name('shopping-list.show');
         Route::post('/update/{id}', [App\Http\Controllers\ShoppingListController::class, 'update'])->name('shopping-list.update');
     });
+
+    // Compras
+    Route::prefix('purchase')->group(function () {
+        
+        Route::get('/', [App\Http\Controllers\PurchaseController::class, 'index'])->name('purchase.index');
+        Route::post('/create', [App\Http\Controllers\PurchaseController::class, 'create'])->name('purchase.create');
+        Route::get('/show/{id}', [App\Http\Controllers\PurchaseController::class, 'show'])->name('purchase.show');
+        Route::post('/update/{id}', [App\Http\Controllers\PurchaseController::class, 'update'])->name('purchase.update');
+        Route::post('/delete/{id}', [App\Http\Controllers\PurchaseController::class, 'delete'])->name('purchase.delete');
+    });
     
 });

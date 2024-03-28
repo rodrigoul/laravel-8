@@ -53,8 +53,16 @@ class ShoppingListService implements ServiceInterface
     }
 
     public function update($id, array $data){
+        
+        //dd($data);
 
+        $shoppingListOnly = [
+            'id' => $data['id'],
+            'name' => $data['name'],
+            'ended' => isset($data['ended']) ? $data['ended'] : false 
+        ];
 
+        return $this->shoppingListModel::where('id', $id)->update($shoppingListOnly);
     }
     
     public function delete($id){}
