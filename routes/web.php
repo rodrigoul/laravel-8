@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/create', [App\Http\Controllers\ItemController::class, 'create'])->name('items.create');
         Route::get('/show/{id}', [App\Http\Controllers\ItemController::class, 'show'])->name('items.show');
         Route::post('/update/{id}', [App\Http\Controllers\ItemController::class, 'update'])->name('items.update');
+        Route::post('/delete/{id}', [App\Http\Controllers\ItemController::class, 'delete'])->name('items.delete');
     });
 
     // Categorias
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.create');
         Route::get('/show/{id}', [App\Http\Controllers\CategoryController::class, 'show'])->name('category.show');
         Route::post('/update/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
+        Route::post('/delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('category.delete');
     });
 
     // Listas   

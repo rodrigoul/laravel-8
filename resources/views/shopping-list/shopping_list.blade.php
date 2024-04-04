@@ -47,7 +47,10 @@
                                         <i class="fas fa-plus"></i> Items / <i class="fas fa-pen"></i> Editar
                                     </a>
                                     @else
-                                    <i class="fas fa-lock"></i>
+                                    <i class="fas fa-lock" title="Lista Encerrada"></i>
+                                    <a href="{{ route('shopping-list.show', ['id' => $item->id, 'onlyshow' => 'true']) }}">
+                                        <i class="fas fa-eye" title="visualizar"></i>
+                                    </a> 
                                     @endif
                                 </td>
                             </tr>

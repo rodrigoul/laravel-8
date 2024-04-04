@@ -55,5 +55,22 @@ class ItemService implements ServiceInterface
         return $this->itemModel::where('id', $id)->update($data);
     }
     
-    public function delete($id){}
+    public function delete($id){
+
+        try {
+
+            $item = $this->itemModel::find($id);
+
+            if ($item) {
+
+                $item->delete();
+                return true;
+            } 
+            
+            return false;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

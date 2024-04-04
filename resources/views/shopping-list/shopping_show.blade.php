@@ -19,11 +19,36 @@
             </div>
             @endif
             <div class="card">
-                <div class="card-header">{{ __('Atualização') }}</div>
+                <div class="card-header">{{$shoppingList->name}}</div>
 
                 
                 <div class="card-body">
-                    <form method="POST" id="myForm" action="{{ route('shopping-list.update', ['id' => $shoppingList->id]) }}">
+
+                    @if(request()->has('onlyshow') && request()->query('onlyshow') === 'true') 
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Quantidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($purchases as $purchase)
+                                        @if ($purchase->items && $purchase->items->count() > 0)
+                                            <tr  id="{{ $purchase->id }}">
+                                                <td>{{ $purchase->items->name }}</td>
+                                                <td> <span class="badge bg-secondary">{{ $purchase->quantity }}</span></td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                
+                    <form method="POST" id="myFormId" action="{{ route('shopping-list.update', ['id' => $shoppingList->id]) }}">
                         @method('POST')
                         @csrf
                         
@@ -51,11 +76,12 @@
 
                         @if ($hasItems)
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Nome do Item</th>
+                                            <th>Item</th>
                                             <th>Quantidade</th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,7 +89,7 @@
                                             @if ($purchase->items && $purchase->items->count() > 0)
                                                 <tr  id="{{ $purchase->id }}">
                                                     <td>{{ $purchase->items->name }}</td>
-                                                    <td>{{ $purchase->quantity }}</td>
+                                                    <td> <span class="badge bg-secondary">{{ $purchase->quantity }}</span></td>
                                                     <td>
                                                         <button type="button" alt="remover" title="remover" 
                                                                 id="{{ $purchase->id }}" class="btn btn-danger btn-sm removeItemList" onclick="removeItemList(this)">
@@ -106,7 +132,9 @@
                                     <input type="number" name="quantity[]" class="form-control quantity" min="1" max="10000" disabled/>
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="button" alt="remover" title="remover" class="btn btn-danger remove-item-btn mt-4" onclick="removeItemRow(this)"><i class="fa-solid fa-trash"></i></button>
+                                    <button type="button" alt="remover" title="remover" class="btn btn-danger remove-item-btn mt-4" onclick="removeItemRow(this)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -121,15 +149,19 @@
                         <hr />
                         <div class="row mb-3">
                                 <div class="col-md-12">
-                                <input class="form-check-input" type="checkbox" id="ended" name="ended">
+                                @if ($hasItems)
                                 <label class="form-check-label" for="ended"></label>
-                                <label for="ended" class="form-label">Marque se deseja fechar a lista após adicionar os itens</label>
+                                    <input class="form-check-input" type="checkbox" id="ended" name="ended">
+                                    <label for="ended" class="form-label">Marque se deseja fechar a lista</label>
+                                @endif
                                 <button type="submit" id="submit" class="btn btn-primary float-end">{{ __('Atualizar Lista') }}</button>
                             </div>
                             
                         </div>
 
                     </form>
+
+                    @endif
                 </div>
             </div>
         </div>
@@ -218,27 +250,6 @@
             xhr.send(data);
         }
     }
-
-    // document.addEventListener('DOMContentLoaded', function() {
-
-    //     var form = document.getElementById('myForm');
-
-    //     form.addEventListener('submit', function(event) {
-    //         event.preventDefault();
-
-    //         if (checkIfItemExists()) {
-    //             alert('Este item já está na lista. Por favor, escolha outro.');
-    //         } else {
-    //             console.log('pode ir'); return false;
-    //             //form.submit();
-    //         }
-    //     });
-    //     function checkIfItemExists() {
-    
-            
-    //     }
-    // });
-
 
 </script>
 @endsection

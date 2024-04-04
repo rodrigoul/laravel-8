@@ -45,6 +45,11 @@
                                         Editar
                                         <i class="fas fa-pen"></i>
                                     </a>
+
+                                    <button type="button" alt="remover" title="remover" 
+                                            id="{{ $category->id }}" class="btn btn-danger btn-sm" onclick="removeCategory(this)">
+                                        <i class="fa-solid fa-x"></i>
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach
@@ -56,4 +61,47 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+
+        function removeCategory(button) {
+
+            if (confirm('Tem certeza que deseja excluir esta categoria?')) {
+
+                var itemId = button.id;
+                var xhr = new XMLHttpRequest();
+                var baseUrl = window.location.origin; // Obtém a URL base do navegador
+                var route = baseUrl + '/category/delete/' + itemId; // Monta a rota manualmente
+
+                //console.log(route); return false;
+                xhr.open('POST', route, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response) {
+                                alert('Categoria excluída com sucesso!');
+                                var elem = document.getElementById(itemId);
+                                if (elem) {
+                                    elem.closest('tr').remove();
+                                }
+                            } else {
+                                alert('Erro ao excluir categoria.');
+                            }
+                        } else {
+                            alert('Erro ao excluir categoria. Por favor, tente novamente.');
+                        }
+                    }
+                };
+
+                var data = JSON.stringify({ id: itemId });
+                xhr.send(data);
+            }
+        }
+</script>
+
 @endsection
+

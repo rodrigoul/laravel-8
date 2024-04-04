@@ -48,6 +48,10 @@
                                         Editar
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
+                                    <button type="button" alt="remover" title="remover" 
+                                            id="{{ $item->id }}" class="btn btn-danger btn-sm" onclick="removeCreatedItem(this)">
+                                        <i class="fa-solid fa-x"></i>
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach
@@ -59,4 +63,45 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+
+        function removeCreatedItem(button) {
+
+            if (confirm('Tem certeza que deseja excluir este item?')) {
+
+                var itemId = button.id;
+                var xhr = new XMLHttpRequest();
+                var baseUrl = window.location.origin;
+                var route = baseUrl + '/items/delete/' + itemId; 
+
+                //console.log(route); return false;
+                xhr.open('POST', route, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response) {
+                                alert('Item removido com sucesso!');
+                                var elem = document.getElementById(itemId);
+                                if (elem) {
+                                    elem.closest('tr').remove();
+                                }
+                            } else {
+                                alert('Erro ao excluir item.');
+                            }
+                        } else {
+                            alert('Erro ao excluir item. Por favor, tente novamente.');
+                        }
+                    }
+                };
+
+                var data = JSON.stringify({ id: itemId });
+                xhr.send(data);
+            }
+        }
+</script>
 @endsection

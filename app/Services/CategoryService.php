@@ -54,5 +54,22 @@ class CategoryService implements ServiceInterface
         return $this->categoryModel::where('id', $id)->update($data);
     }
 
-    public function delete($id){}
+    public function delete($id){
+
+        try {
+
+            $category = $this->categoryModel::find($id);
+
+            if ($category) {
+
+                $category->delete();
+                return true;
+            } 
+            
+            return false;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

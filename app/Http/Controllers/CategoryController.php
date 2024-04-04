@@ -95,5 +95,18 @@ class CategoryController extends Controller implements ControllerInterface
 
     public function delete($id, Request $request)
     {
+        try {
+
+            //var_dump($request->id); exit();
+            $delete = $this->categoryService->delete($request->id);
+
+
+            if(!$delete) return false;
+
+            return $delete;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

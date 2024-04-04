@@ -100,5 +100,16 @@ class ItemController extends Controller implements ControllerInterface
 
     public function delete($id, Request $request)
     {
+        try {
+
+            $delete = $this->itemService->delete($request->id);
+
+            if(!$delete) return false;
+
+            return $delete;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
