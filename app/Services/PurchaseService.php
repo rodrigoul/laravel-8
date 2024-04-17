@@ -63,8 +63,8 @@ class PurchaseService implements ServiceInterface
         try {
 
             $purchase = $this->purchaseModel::where('shopping_list_id', $id)
-            ->with(['shoppingList', 'items', 'user'])
-            ->get();
+                ->with(['shoppingList', 'items', 'user'])
+                ->get();
 
             return $purchase;
 

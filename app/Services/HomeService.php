@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Interfaces\ServiceInterface;
 use App\Models\ItemModel;
+use App\Models\PurchaseModel;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class HomeService implements ServiceInterface
@@ -26,7 +28,15 @@ class HomeService implements ServiceInterface
                 ->groupBy('categories.name')
                 ->get();
 
-            return $itemsByCategory;
+            $mostBoughtItems = PurchaseModel::with('items')
+                ->select('item_id', DB::raw('COUNT(id) as total_sales'))
+                ->groupBy('item_id')
+                ->orderByDesc('total_sales')
+                //->limit(100)
+                ->get();
+            //dd($mostBoughtItems->toArray());
+
+            return ['itemsByCategory' => $itemsByCategory, 'mostBoughtItems' => $mostBoughtItems];
 
         } catch (\Throwable $th) {
             throw $th;

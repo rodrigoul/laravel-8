@@ -28,10 +28,13 @@ class HomeController extends Controller implements ControllerInterface
      */
     public function index()
     {   
-        $categoryData = $this->homeService->index();
+        $data = $this->homeService->index();
         //dd($categoryData->toArray());
 
-        return view('home', ['categories' => $categoryData]);
+        return view('home', [
+            'itemsByCategory' => $data['itemsByCategory'],
+            'mostBoughtItems' => $data['mostBoughtItems']
+        ]);
     }
 
     public function create(Request $request){}

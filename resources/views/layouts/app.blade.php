@@ -68,6 +68,10 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     
+                                    <a class="dropdown-item" href="{{ route('home.index') }}">
+                                        {{ __('Principal/Dashboard') }}
+                                    </a>
+                                    
                                     <a class="dropdown-item" href="{{ route('category.index') }}">
                                         {{ __('Categorias') }}
                                     </a>

@@ -16,11 +16,13 @@
 
                     {{-- Saudação personalizada com o nome do usuário --}}
                     @auth
-                        <p>{{ __('Bem-vindo(a),') }} {{ Auth::user()->name }}!</p>
+                        <p class="text-center">{{ __('Bem-vindo(a),') }} {{ Auth::user()->name }}!</p>
                     @endauth
 
                         {{-- Gráfico de colunas Highcharts --}}
                         <div id="chart-container"></div>
+                        <div class="col-md-12"></div>
+                        <div id="chart-container-2"></div>
                 </div>
             </div>
         </div>
@@ -31,10 +33,9 @@
 
 
     document.addEventListener('DOMContentLoaded', function () {
-        // Dados das categorias e quantidades de itens
 
-        const categories = <?php echo json_encode($categories->pluck('category_name'))?>;
-        const totalItems = <?php echo json_encode($categories->pluck('total_items'))?>;
+        const categories = <?php echo json_encode($itemsByCategory->pluck('category_name'))?>;
+        const totalItems = <?php echo json_encode($itemsByCategory->pluck('total_items'))?>;
 
         if(totalItems){
             
@@ -57,6 +58,34 @@
                 series: [{
                     name: 'Itens',
                     data: totalItems
+                }]
+            });
+        }
+
+        const mostBoughtItems = <?php echo json_encode($mostBoughtItems) ?>;
+        const itemName = mostBoughtItems.map(item => item.items.name);
+        const totalBoughtItems = mostBoughtItems.map(item => item.total_sales);
+
+        if (totalBoughtItems.length > 0) {
+            Highcharts.chart('chart-container-2', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: 'white'
+                },
+                title: {
+                    text: 'Mais Comprados'
+                },
+                xAxis: {
+                    categories: itemName
+                },
+                yAxis: {
+                    title: {
+                        text: 'Compras'
+                    }
+                },
+                series: [{
+                    name: 'Adquiridos',
+                    data: totalBoughtItems
                 }]
             });
         }
