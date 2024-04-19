@@ -7,6 +7,7 @@ use App\Models\ItemModel;
 use App\Models\PurchaseModel;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class HomeService implements ServiceInterface
 {   
@@ -20,7 +21,8 @@ class HomeService implements ServiceInterface
     public function index(){
 
         
-        try {
+        try {   
+            $user_id = Auth::id();
     
             $itemsByCategory = $this->itemModel::with('category')
                 ->selectRaw('categories.name as category_name, COUNT(*) as total_items')
@@ -29,12 +31,16 @@ class HomeService implements ServiceInterface
                 ->get();
 
             $mostBoughtItems = PurchaseModel::with('items')
-                ->select('item_id', DB::raw('COUNT(id) as total_sales'))
+                ->select('item_id', DB::raw('SUM(quantity) as total_sales'))
+                ->whereHas('user', function ($query) use ($user_id) {
+                    $query->where('id', $user_id);
+                })
                 ->groupBy('item_id')
                 ->orderByDesc('total_sales')
-                //->limit(100)
                 ->get();
+
             //dd($mostBoughtItems->toArray());
+        
 
             return ['itemsByCategory' => $itemsByCategory, 'mostBoughtItems' => $mostBoughtItems];
 

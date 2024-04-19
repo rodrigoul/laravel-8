@@ -63,10 +63,14 @@
         }
 
         const mostBoughtItems = <?php echo json_encode($mostBoughtItems) ?>;
-        const itemName = mostBoughtItems.map(item => item.items.name);
-        const totalBoughtItems = mostBoughtItems.map(item => item.total_sales);
+        const filteredItems = mostBoughtItems.filter(item => item.items && item.items.name);
 
-        if (totalBoughtItems.length > 0) {
+        const itemName = filteredItems.map(item => item.items.name);
+        const totalBoughtItems = filteredItems.map(item => parseInt(item.total_sales));
+
+        console.log(totalBoughtItems);
+
+        if (itemName.length > 0) {
             Highcharts.chart('chart-container-2', {
                 chart: {
                     type: 'column',

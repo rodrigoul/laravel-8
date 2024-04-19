@@ -54,6 +54,7 @@
                         
                         <input type="hidden" name="id" value="{{ $shoppingList->id }}"/>
                         <div class="mb-3">
+                                <input type="hidden" name="user_id" value="{{Auth::id()}}">
                             <label for="name" class="form-label">{{ __('Nome da Lista') }}</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" 
                                     value="{{ old('name', $shoppingList->name) }}" required autofocus minlength="5">

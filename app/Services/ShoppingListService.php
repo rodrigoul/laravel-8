@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\ServiceInterface;
 use App\Models\ShoppingListModel;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class ShoppingListService implements ServiceInterface
 {   
@@ -20,7 +21,8 @@ class ShoppingListService implements ServiceInterface
 
         try {
 
-            $shoppingLists = $this->shoppingListModel::query()->get();
+            $userId = Auth::id(); 
+            $shoppingLists = $this->shoppingListModel::where('user_id', $userId)->get();
             return $shoppingLists;
 
         } catch (\Throwable $th) {
@@ -31,7 +33,7 @@ class ShoppingListService implements ServiceInterface
     public function create(array $data){
 
         try {
-    
+            //dd($data);
             return $this->shoppingListModel::create($data);
 
         } catch (\Throwable $th) {

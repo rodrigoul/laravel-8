@@ -28,6 +28,7 @@
                         @csrf
 
                         <div class="mb-3">
+                            <input type="hidden" name="user_id" value="{{Auth::id()}}">
                             <label for="name" class="form-label">{{ __('Nome da Lista de Compras') }}</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
                             @error('name')
