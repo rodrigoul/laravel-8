@@ -3,7 +3,7 @@
 
 Caro Orientador,
 
-Meu objetivo principal com essa aplicação simples de lista de compras é implementá-la em um ambiente simulado de um _Cluster Kubernetes_ utilizando o _Minikube_. Utilizar de load balance, escalonamento automático e outras _features_ fornecidas pelo _Cluster Kubernetes_
+Meu objetivo principal com essa aplicação simples de lista de compras é implementá-la em um ambiente simulado de um _Cluster Kubernetes_ utilizando. Utilizar de load balance, escalonamento automático e outras _features_ fornecidas pelo _Cluster Kubernetes_
 
 Essa primeira versão da aplicação consta com autenticação e duas entidades prontas. O intuito dessa primeira versão é mostrar o modelo/arquitetura que estou usando no desenvolvimento. 
 
