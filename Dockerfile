@@ -26,6 +26,7 @@ RUN git clone -b main https://rodrigoul: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
 
 # Copy .env.example do host para o contexto de construção da imagem
 COPY .env.example /var/www/html/laravel-8/.env
+COPY Dockerfile /var/www/html/laravel-8/Dockerfile
 
 # Instalar dependências usando o Composer e npm
 RUN cd laravel-8 && composer install && npm install
@@ -44,8 +45,8 @@ ADD ./deploy/nginx-supervisor.ini /etc/supervisor.d/nginx-supervisor.ini
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 
-#RUN chown -R www-data:www-data /var/www/html && \
-#chmod -R 777 /var/www/html
+RUN chown -R www-data:www-data /var/www/html && \
+chmod -R 777 /var/www/html
 
 # Ajuste as permissões dos arquivos da aplicação
 RUN chown -R www-data:www-data /var/www/html/laravel-8/storage /var/www/html/laravel-8/bootstrap/cache /var/www/html/laravel-8/vendor
