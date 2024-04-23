@@ -14,14 +14,21 @@ RUN apk update && \
 # Instale as extensões PHP necessárias, incluindo a extensão PDO MySQL
 RUN docker-php-ext-install pdo_mysql mysqli
 
-# Housekeeping
-RUN mkdir -p /etc/nginx
-RUN mkdir -p /run/nginx
-RUN mkdir -p /var/run/php-fpm
-RUN mkdir -p /var/log/supervisor
+# Install Composer, Node.js, npm, and Git
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && apk add --update nodejs npm git
 
-# Copie os arquivos da aplicação para o diretório de trabalho do contêiner
-COPY . /var/www/html
+# Defina o diretório de trabalho para /var/www/html
+WORKDIR /var/www/html
+
+# Clone repository using HTTPS with username and access token
+RUN git clone -b main https://rodrigoul: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@github.com/rodrigoul/laravel-8.git
+
+# Copy .env.example do host para o contexto de construção da imagem
+COPY .env.example /var/www/html/laravel-8/.env
+
+# Instalar dependências usando o Composer e npm
+RUN cd laravel-8 && composer install && npm install
 
 # Copy base Nginx config
 RUN rm /etc/nginx/nginx.conf
@@ -37,14 +44,12 @@ ADD ./deploy/nginx-supervisor.ini /etc/supervisor.d/nginx-supervisor.ini
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 
-RUN chown -R www-data:www-data /var/www/html && \
-chmod -R 777 /var/www/html
+#RUN chown -R www-data:www-data /var/www/html && \
+#chmod -R 777 /var/www/html
 
 # Ajuste as permissões dos arquivos da aplicação
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/vendor
-RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/vendor
+RUN chown -R www-data:www-data /var/www/html/laravel-8/storage /var/www/html/laravel-8/bootstrap/cache /var/www/html/laravel-8/vendor
+RUN chmod -R 777 /var/www/html/laravel-8/storage /var/www/html/laravel-8/bootstrap/cache /var/www/html/laravel-8/vendor
 
 # Start
-CMD ["/usr/bin/supervisord"]
-
-
+CMD php-fpm & nginx -g "error_log /dev/stdout info;"
