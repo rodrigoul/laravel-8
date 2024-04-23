@@ -1,0 +1,23 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: lista-compras-mysql-service
+  namespace: azure-vote
+spec:
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: lista-compras-mysql
+  clusterIP: 10.0.30.216 //gerado automaticamente
+  clusterIPs:
+    - 10.0.30.216 //gerado automaticamente
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster
+status:
+  loadBalancer: {}

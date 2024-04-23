@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: lista-compras
+  namespace: azure-vote
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32766
+  selector:
+    app: lista-compras
+  type: LoadBalancer
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+  allocateLoadBalancerNodePorts: true
+  internalTrafficPolicy: Cluster
+status:
+  loadBalancer:
+    ingress:
+      - ip: 4.157.201.108 //gerado automaticamente pelo cluster
