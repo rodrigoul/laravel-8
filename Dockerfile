@@ -51,5 +51,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN chown -R www-data:www-data /var/www/html/laravel-8/storage /var/www/html/laravel-8/bootstrap/cache /var/www/html/laravel-8/vendor
 RUN chmod -R 777 /var/www/html/laravel-8/storage /var/www/html/laravel-8/bootstrap/cache /var/www/html/laravel-8/vendor
 
+EXPOSE 8080
+
 # Start
 CMD php-fpm & nginx -g "error_log /dev/stdout info;"
